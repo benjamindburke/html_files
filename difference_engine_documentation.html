@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Documentation</title>
+    </head>
+    <style>
+        html, 
+            .body {
+                background-color: navajowhite;
+            }
+            .lol {
+                color: cadetblue;
+            }
+        
+    </style>
+    <body>
+        <h2>The Difference Engine Simulator Documentation</h2>
+        <p>So, <a HREF="http://www.pages.drexel.edu/~bdb55/difference_engine.html">this</a> was a thing. It was an incredibly hard thing. 
+        Considering I had no clue that this was assigned, it was a scramble to get working. I started off by searching through whatever 
+        source code I could find that would relate to something I knew I had to do, but to be honest, I had no clue what exactly I was doing. 
+        I started by finding an online calculus JavaScript library so I could take derivatives, but that was completely unnecessary. I 
+        worked for a long time trying to find a way to process polynomials and then derive them. I realized this was way too much work and 
+        re-read the directions. Understanding what was asked was pretty important.
+        <p>Now that I knew what I was doing, I worked the math out in my head. My hardest challenge was finding a way to output the info. 
+        I struggled for a long time to find a good way to output stuff utill I stumbled upon the realization that Brian Stuart's OUT 
+        function for the CARDIAC simulator was perfect. It took a while to understand how it worked though.
+        <p>After this, it was a problem of getting the math squared away. The current simulator isn't capable of handling stuff like 
+        x<sup>4</sup> at x=0, but I'm not gonna add more to it. It works pretty decently, having been coded by a complete monkey.
+        <hr>
+        <h3>How to use the thing</h3>
+        <p>Put numbers in. Really though, the program asks the user for an amount of rows to add starting at a specified x value. After this,
+        boxes follow for the user to input the function evaluated at different orders of derivation. Pretty simple.
+        <h3>How it was tested</h3>
+        <p class="lol">via scantron
+        <p>Joking. I used derivations of x<sup>2</sup>, evaluated at x=1 as test values. I tried up to 1000 rows, starting at 1, and the
+        simulator handled it pretty well. During testing, I used the for loop within the compute() function to output the increment in all 7
+        output boxes just to make sure I was able to write to all of them individually, and from there I plugged maths in.
+        <h1 class="lol">Google<sup>™</sup> is my absolute best friend</h1>
+        <h6>I'm not always a monkey please believe me</h6>
+        <p>Overall, this assignment was pretty fun, and it was a decent learning experience. -Benjamin D. Burke
+    </body>
+
+</html>

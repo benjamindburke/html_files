@@ -1,0 +1,68 @@
+<!doctype html>
+    <head>
+        <title>Interacting with Robbie Rotten</title>
+    </head>
+    <body>
+        <h3>How did Robbie become my pet?</h3>
+        <p>Robbie Rotten finished his run on the show Lazy Town, and he was let go from the studio. Tired and poor from his villainous work,
+            he wandered the streets for weeks before I found him in the area between Northside Terrace, Race Hall and Myers Hall late one 
+            night. I saw that he was cold and hungry, so I took him in. As a person with free will, he decided to stay after he had fully 
+            recovered. He's a little weird, so he prefers being pet over being talked to.
+        <h3>States and stimuli</h3>
+        <p>He can occupy several states that are decided by his hunger and happiness, and random chance. Hunger and happiness decrease 1 
+            per second. Pressing the pet button adds 25 to happiness, and pressing feed adds 50 to hunger.<br>
+        <table border="1"> 
+            <thead>
+                <tr>
+                    <th>State</th>
+                    <th>Stimuli</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Calm</td>
+                    <td>Caused when hunger is between 20 and 79 and happiness is betweeen 35 and 79.</td>
+                </tr>
+                <tr>
+                    <td>Happy</td>
+                    <td>Caused when hunger and happiness are both between 80 and 100.</td>
+                </tr>
+                <tr>
+                    <td>Angry</td>
+                    <td>Caused when hunger is greater than or equal to 20 and happiness is less than 20.</td>
+                </tr>
+                <tr>
+                    <td>Lonely</td>
+                    <td>Caused when hunger is greater than or equal to 20 and happiness is between 20 and 34<./td>
+                </tr>
+                <tr>
+                    <td>Hungry</td>
+                    <td>Caused when hunger is less and 20 and not 0.</td>
+                </tr>
+                <tr>
+                    <td>Dead</td>
+                    <td>Caused when hunger reaches 0. In this state, pet and feed do nothing, and the internal simulate function halts.</td>
+                </tr>
+                <tr>
+                    <td>Rampage</td>
+                    <td>10% chance to change from angry, and 25% chance to change from hungry.</td>
+                </tr>
+                <tr>
+                    <td>Sad</td>
+                    <td>20% chance to change from lonely.</td>
+                </tr>
+                <tr>
+                    <td>Sleeping</td>
+                    <td>5% chance to change from happy and 10% chance to change from calm.</td>
+                </tr>
+            </tbody>
+        </table>
+        <h3>From one programmer to another</h3>
+        <p>Adding to this program is really simple. Taking it for yourself is as simple as changing the names of the .jpeg pictures and 
+            the states list. That is, if you plan on keeping the hunger and happiness bars. I intentionally made it so these were external 
+            numbers, so I ran into the problem of being able to change them outside of pressing the buttons. To address this, I made the 
+            textareas completely ignore key presses. 
+        <p>Furthermore, adapting it for your own use is as simple as chaning the variables and the math within the function simulate(). 
+            Making functions based on what you want the buttons to do is as simple as deleting pet() and feed() and replacing them with 
+            your own functions. As long as they're placed here and attached to the correct buttons using ID's, you're good to go.
+    </body>

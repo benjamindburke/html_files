@@ -1,0 +1,258 @@
+﻿<!-- Still need two images. Finish webpage-->
+<html>
+<head> 
+  <title>Aid for CS164: CARDIAC</title>
+</head>
+  <body>
+    <center><img src="cardlogo.jpg"></center>
+    <center><h1> CARDIAC - CARDboard Illustrative Aid to Computation</h1></center>
+    <p> I know why you're here! CARDIAC was just covered, and now you have to do a lab with it.
+        You don't care about the history of CARDIAC, so I'll spare it. 
+        You just need to know how it works, and I can help with that.
+        CARDIAC is a computing aid used primarily to help students understand assembly language and machine language. 
+        It has 100 memory addresses, labeled 00 through 99. 
+        Locations 00 and 99 are filled by default.
+        Location 99 contains "8" followed by two other symbols by default, and Location 00 always contains "001" which is used in a process called "bootstrapping."
+        More on this process later.
+
+    <h2> The Basics to Computing with CARDIAC</h2>
+    <p> CARDIAC's machine language uses 10 different commands to complete processes.
+        These commands are labeled 0 through 9.
+    <p><table border="1">
+    <thead>
+      <tr>
+        <th> Command </th>
+        <th> Mnemonic </th>
+        <th> Operation </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td> 0 </td>
+        <td> INP </td>
+        <td> Read a card into memory (initialize input)
+      </tr>
+      <tr>
+        <td> 1 </td>
+        <td> CLA </td>
+        <td> Clear accumulator and add from card (load)
+      </tr>
+      <tr>
+        <td> 2 </td>
+        <td> ADD </td>
+        <td> Add from memory
+      </tr>
+      <tr>
+        <td> 3 </td>
+        <td> TAC </td>
+        <td> Test accumulator and jump if negative
+      </tr>
+      <tr>
+        <td> 4 </td>
+        <td> SFT </td>
+        <td> Shift accumulator
+      </tr>
+      <tr>
+        <td> 5 </td>
+        <td> OUT </td>
+        <td> Write memory location to output card (output)
+      </tr>
+      <tr>
+        <td> 6 </td>
+        <td> STO </td>
+        <td> Store accumulator in memory
+      </tr>
+      <tr>
+        <td> 7 </td>
+        <td> SUB </td>
+        <td> Subtract memory
+      </tr>
+      <tr>
+        <td> 8 </td>
+        <td> JMP </td>
+        <td> Jump to location (loop)
+      </tr>
+      <tr>
+        <td> 9 </td>
+        <td> HRS </td>
+        <td> Halt and reset
+      </tr>
+    </tbody>
+    </table>
+    <p> But how are these operations used?
+    <p> CARDIAC commands are 3 digit non-negative operations made of two parts:
+    <p><ul>
+      <li> The first digit is 0-9 to determine the operation
+      <li> The last two digits are 00-99 to determine the memory location the operation is performed on
+      </ul>
+    <p><center><img src="cardoperations.jpg"></center>   
+    <p> Most operations are pretty simple and intuitive, but if you wish to know more, you can read on the intricacies of each operation at <a HREF="https://www.cs.drexel.edu/~bls96/museum/cardiac.html"> Brian Stuart's CARDIAC webpage</a>.
+    <p> Now that we're beginning to understand how the operation codes work, let's open up Brian Stuart's handy <a HREF="https://www.cs.drexel.edu/~bls96/museum/cardsim.html">CARDIAC simulator</a>.
+        When the webpage opens up, this is what you will see.
+    <p><center><img src="cardsim.jpg"></center>
+    <p> Let's learn the different parts of the simulator so we can start wriitng programs.
+	Memory is exactly what the name says, but deck, reader, CPU, accumulator and output haven't been discussed yet.
+        To make it simple, the deck is your input.
+        Press load to move it to the reader. 
+        This readies your input for the program to operate with.
+	The PC number under CPU should be set to the location of your first operation so your program actually runs.
+	It's good practice to start at PC 10.
+	If your program does something really weird, try checking the PC.
+	The accumulator is one of two things that your program will operate with. 
+	The other is a memory location.
+	Output is simply the result of the program.
+    <h3>Writing a program </h2>
+    <p> So you're probably thinking to yourself, "how in the hell do I get this thing to work?"
+	It's much simpler than you think. 
+	In fact, the simplicity is what throws students off. 
+	They're expecting it to be much harder than it is.
+    <p>	Let's start with 3+2, very elementary. 
+	But how do we tell CARDIAC we want to add two numbers together?
+	Let's break it down into parts: 3, + and 2.
+	First, we need to store these numbers somewhere so they can be referenced.
+	The locations don't really matter, so let's use 04 and 05 for simplicity.
+	We'll store 003 in Location 04 and 002 in Location 05. 
+	Let's load 003 using our CLA operation, opcode 1. 
+	104 will load the data located in Location 04 into the accumulator.
+	This tells CARDIAC "do operation 1 on 04", which puts 003 in the accumulator.
+	To add, we'll use our ADD operation, opcode 2.
+	205 will add the data located in Location 05 to the accumulator. 
+	Since 003 is in the accumulator, adding 002 will change the accumulator to 005.
+	You've done the operation 3+2, but you aren't done yet.
+	The data needs to be stored somewhere.
+	Again, location is arbitrary, so let's store it in Location 06.
+	To do that, we'll need to use STO, opcode 6.
+	606 will store the accumulator, "005," into Location 06.
+	Now, we need to output it so CARDIAC finally tells us that 3+2 does indeed equal 5.
+	TO do that, we'll use OUT, opcode 5.
+	506 will output Location 06, which contains the number "005."
+    <p> Pretty simple, right? It just takes a while to do.
+	The major thing to understand: <b> opcodes perform their functions on the two digit location that follows them. </b>
+    <p> The assembly language breakdown of 3+2: <br>
+	DATA &nbsp; n<br>
+	DATA &nbsp; m<br>
+	CLA &nbsp; n<br>
+	ADD &nbsp; m<br>
+	STO &nbsp; sum<br>
+	OUT &nbsp; sum<br>
+    <p> The machine language used to do 3+2: <br>
+	04	&nbsp;	003 <br>
+	05	&nbsp;	002 <br>
+	10	&nbsp;	104 <br>
+	11	&nbsp;	205 <br>
+	12	&nbsp;	606 <br>
+	13	&nbsp;	506
+    <p> It's easy to get lost in the simplicity sometimes. 
+	These are just the basics, so use your knowledge to create more complex programs.
+    <hr>
+    <h2>Bootstrapping</h2>
+    <p>	Bootstrapping, or booting, is the process in which the program writes itself and executes.
+	So how would someone bootstrap in CARDIAC?
+    <p> It's pretty simple, but it's important to understand how it's done. By default, the PC starts at 00. 
+	Again by default, 00 contains 001, which if it's ran, it will initialize 01 to something.
+	So here's the first trick: a loop must be created where the program revisits location 00.
+	To do that, we load 800 into location 02. 
+	This will cause the loop to put a different operation into location 01, which will cause the program to fill its own locations with the operations you want it to perform.
+    <p> And how do we stop it? 
+	After your last operation, end it with loading 810 into location 02 to begin the program.
+	Test values can follow this operation.
+    <p> Bootstrapping example of 3+2: <br>
+    <p> 002<br>
+	800<br>
+	004<br>
+	003<br>
+	005<br>
+	002<br>
+	010<br>
+	104<br>
+	011<br>
+	205<br>
+	012<br>
+	606<br>
+	013<br>
+	506<br>
+	014<br>
+	900<br>
+	002<br>
+	810<br>
+    <p> Take the time to go step-by-step. 
+	Watch the program loop from 00 to 02 and slowly fill the locations with the operations.
+	Bootstrapping is pretty simple, but it's incredibly important to understand how it's actually done.
+    <p> Bootstrapping for dummies: <ol>
+      <li> 002
+      <li> 800
+      <li> location
+      <li> operation
+      <li> repeat 3-4 until there are no more operations
+      <li> 002
+      <li> 810
+      <li> test values (if there are any) </ol>
+
+    <h3>Bootstrapping examples</h3>
+    <p> Read numbers until one is negative:
+    <p> 002<br>
+	800<br>
+	010<br>
+	004<br>
+	011<br>
+	104<br>
+	012<br>
+	314<br>
+	013<br>
+	810<br>
+	014<br>
+	900<br>
+	002<br>
+	810<br>
+	004<br>
+	060<br>
+	000<br>
+	045<br>
+	-001<br>
+
+    <p> Counting down from 1 to 10:<br>
+    <p> 002<br>
+	800<br>
+	010<br>
+	100<br>
+	011<br>
+	605<br>
+	012<br>
+	104<br>
+	013<br>
+	322<br>
+	014<br>
+	505<br>
+	015<br>
+	105<br>
+	016<br>
+	200<br>
+	017<br>
+	605<br>
+	018<br>
+	104<br>
+	019<br>
+	700<br>
+	020<br>
+	604<br>
+	021<br>
+	812<br>
+	022<br>
+	900<br>
+	004<br>
+	009<br>
+	002<br>
+	810<br>
+
+    <p> You're ready to go!
+    <p> <center><img src="garfield.gif"></center>
+    <hr>
+    <p> This is all the help I can offer. If you still can't understand what's going on, try these resources:
+      <ul> 
+	<li><a HREF="https://www.google.com/#q=cardboard+illustrative+aid+to+computation">Google</a>
+	<li><a HREF="https://www.cs.drexel.edu/clc/Fa16/index.html#">Cyber Learning Center</a>
+	<li><a HREF="https://en.wikipedia.org/wiki/CARDboard_Illustrative_Aid_to_Computation">Wikipedia</a>
+	<li> Your peers
+      </ul>
+  </body>
+</html>

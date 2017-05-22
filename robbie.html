@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- Picture sources:
+		https://www.cheap-flyer-printer.com/shop/product_images/a/robbie%20rotten%20tv__24549.jpg
+		https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTvPzixerrrL74X2lhhdeJK56RMdYKoKYzbhRmDyoJairCEokB3
+		http://vignette2.wikia.nocookie.net/straight-bunch/images/1/11/Robbie_Rotten_lazytown_02.gif/revision/latest?cb=20130512013614
+		http://www.relatably.com/m/img/robbie-rotten-memes/Robbie_Rotten.jpg
+		http://rs267.pbsrc.com/albums/ii312/IronFistVelvetGlove/Robbie%20Rotten/Bedclothes.jpg~c200
+		https://pbs.twimg.com/profile_images/683970024713801728/qHjoKtU0_400x400.jpg
+		https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcR-K8CzJQUCOioTj0jwWEZ3vJpbRjusPgCGKCcA8LmoX_yLh8Gq
+		http://ci.memecdn.com/10284685.jpg
+		https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcToXIXDhfUHcvYwqrjF98w29jFUiuT4EYLwdaptzEyw89FT3LeCVA
+-->
+<html>
+	<head><title>The Virtual Pest</title>
+	<style>
+		html,
+		body	{
+			background-color: white;
+			margin: 0;
+			padding: 0;
+			overflow-x: hidden;
+			}
+		.title	{
+			text-align: center;
+			margin-top: 0;
+			}
+		.image	{
+			position: relative;
+			margin-top: 8px;
+			}
+		.footer	{
+			position: absolute;
+			bottom: 0;
+			width: 100%;
+			left: 0;
+			padding-bottom: 8px;
+			text-align: center;
+			}
+	</style>
+	<script>
+	window.addEventListener('load', function() {
+        var moodNum, randomNum
+		var intervalId
+		var moods = ["calmRobbie", "happyRobbie", "angryRobbie", "lonelyRobbie", "hungryRobbie", 
+					"deadRobbie", "rampageRobbie", "sadRobbie", "sleepingRobbie"]
+		var state = ["calm", "happy", "angry", "lonely", "hungry", "dead", "rampage", "sad", "sleeping"]
+		var hungerEl = document.getElementById("hunger")
+		var happinessEl = document.getElementById("happiness")
+		var moodsEl = document.getElementById("moods")
+		var stateEl = document.getElementById("state")
+
+		function init(){
+			moodNum = 0
+			hungerEl.value = 75
+			happinessEl.value = 75
+			moodsEl.src = moods[moodNum] + ".jpeg"
+		}
+		
+		function pet(){
+			if (moodNum !== 5)
+				happinessEl.value = Number(happinessEl.value) + 25
+			if (happinessEl.value > 100)
+				happinessEl.value = 100
+		}
+
+		function feed(){
+			if (hungerEl.value > 0)	
+				hungerEl.value = Number(hungerEl.value) + 50
+			if (hungerEl.value > 100)
+				hungerEl.value = 100
+		}
+
+		function simulate() {
+			randomNum = Math.random()
+
+			if (hungerEl.value > 0)	
+				hungerEl.value--
+			if (happinessEl.value > 0)	
+				happinessEl.value--
+			
+			if ((hungerEl.value >= 20 && hungerEl.value < 80) && 
+				(happinessEl.value >= 35 && happinessEl.value < 80)){
+				if (randomNum < 0.1)
+					moodNum = 8
+				else
+					moodNum = 0
+			}
+			else if ((hungerEl.value >= 80 && hungerEl.value <= 100) &&
+				(happinessEl.value >= 80 && happinessEl.value <= 100)){
+				if (randomNum < 0.05)
+					moodNum = 8
+				else
+					moodNum = 1
+			}
+			else if (hungerEl.value >= 20 && happinessEl.value < 20){
+				if (randomNum < 0.1)
+					moodNum = 6
+				else
+					moodNum = 2
+			}
+			else if (hungerEl.value >= 20 && 
+				(happinessEl.value < 35 && happinessEl.value >= 20)){
+				if (randomNum < 0.2)
+					moodNum = 7
+				else
+					moodNum = 3
+			}
+			else if (hungerEl.value < 20 && hungerEl.value > 0){
+				if (randomNum < 0.25)
+					moodNum = 6
+				else
+					moodNum = 4
+			}
+			else if (hungerEl.value == 0){
+				moodNum = 5
+				happinessEl.value = 0
+				clearInterval(intervalId)
+			}
+
+			stateEl.innerHTML = state[moodNum]
+			moodsEl.src = moods[moodNum] + ".jpeg"
+		} 
+		
+		document.getElementById('petBtn').addEventListener('click', pet)
+		document.getElementById('feedBtn').addEventListener('click', feed)
+		
+		Array.prototype.slice.call(document.querySelectorAll('textarea'), 0)
+			.forEach(function(textarea) {
+				textarea.addEventListener('keydown', function(event) {
+					event.preventDefault()
+					return false
+				})
+			})
+		
+		init()
+		intervalId = setInterval(simulate, 1000)
+	})
+	</script>
+	</head>
+	<body>
+		<h2 class="title">Robbie Rotten, the Virtual Pest</h2>
+		<center>
+			<p>Happiness: &nbsp;<textarea type="text" id="happiness" cols="10" rows="1"></textarea>&nbsp;
+				<input type="button" name="pet" value="Pet" id="petBtn">
+			<p>Hunger: &nbsp;<textarea type="text" id="hunger" cols="10" rows="1"></textarea>&nbsp;
+				<input type="button" name="feed" value="Feed" id="feedBtn">
+			<p>State: &nbsp;<textarea type="text" id="state" cols="10" rows="1"></textarea>
+		<p><div class="image"><img src="" id="moods"></div></center>
+		<div class="footer"><hr><i> Written by Benjamin Burke. Sources for images within source code.
+			<a HREF="/~bdb55/interactingwithrobbie.html">How to interact with Robbie Rotten.</a></i></div>
+	</body>
+</html>	

@@ -1,0 +1,197 @@
+<!doctype html>
+
+<html>
+
+    <head>
+
+        <title>The River Problem</title>
+
+        
+	<style>
+
+            		html,
+
+            		body	{
+
+                		background-image: url('river.jpg');
+
+                		margin: 0;
+		
+                padding: 0;
+
+				overflow-x: hidden;
+				}
+
+            
+            .title {
+
+		                margin-top: 0;
+
+		            	}
+
+            
+            .center {
+
+		                text-align: center;
+
+		                background: white;
+
+		                padding-top: 8px;
+		
+                padding-bottom: 8px;
+				}
+
+			.footer {
+				background: white;
+				position: absolute;
+				bottom: 0;
+				width: 100%;
+				left: 0;
+				padding-bottom: 8px;
+				}
+            
+            .character {
+
+		                position: relative;
+		
+                margin: 4px;
+
+		                height: 100px;
+
+		                width: 100%;
+
+		           	 }
+
+            
+            .character .image {
+
+		                position: absolute;
+
+		                width: 100px;
+
+		                height: 100px;
+
+		            	}
+
+            
+            .right {
+
+		                right: 0;
+
+		            	}
+
+	        </style>
+
+		</head>
+	<body>
+
+	        <div class="center">
+
+			<h2 class="title">The Farmer, The Wolf, The Goat and The Cabbage</h2>
+
+            		<p>To solve this problem, you must safely navigate the farmer, the wolf, the goat and the cabbage across the river. 
+			The farmer has a leaky boat, so he can take only one thing across the river
+ at a time. The goat cannot be left alone 
+			with the wolf, because the wolf will eat the goat. Likewise, the goat cannot be left 
+with the cabbage, because the 
+			goat will eat the cabbage.
+ 
+		</div>
+
+		<div class="scene">
+
+			<div class="farmer character">
+<img src="farmer.jpg" class="image">
+</div>
+			<div class="wolf character">
+<img src="wolf.jpg" class="image"></div>
+			<div class="goat character">
+<img src="goat.jpg" class="image"></div>
+			<div class="cabbage character">
+<img src="cabbage.jpg" class="image">
+</div>
+
+		</div>
+        
+		<div class="footer">
+			<hr>
+        
+				<i>Group project by Ben Burke, Zach Blumstein, Hunter Gamble</i>
+
+
+		</div>
+        
+        <script>
+            
+			var characters = Array.from(document.querySelectorAll('.character .image'))
+
+			var left = characters
+			var right = []
+
+			var danger = 	[
+					['wolf', 'goat'],
+					['goat', 'cabbage']
+					]
+
+
+			for (var i = 0; i < characters.length; i++) {
+
+	                	var character = characters[i]
+
+
+				character.addEventListener('click', function(event) {
+
+					event.target.classList.toggle('right')
+
+
+					var _left = characters
+
+						.filter(x => !x.classList.contains('right'))
+
+						.map(x => x.parentNode.classList.item(0))
+					var _right = characters
+
+						.filter(x => x.classList.contains('right'))
+
+						.map(x => x.parentNode.classList.item(0))
+
+				for (var j = 0; j < danger.length; j++) {
+                        
+					if (matches(_left, danger[j])
+ || matches(_right, danger[j])) {
+
+						alert('Invalid move!')
+						break
+					}
+
+				}
+
+				}, true)
+
+			}
+
+			function matches (xs, ys) {
+		
+                var status = true
+				if (xs.length !== ys.length) return false
+
+
+				for (var i = 0; i < xs.length; i++) {
+
+					if (xs[i] !== ys[i]) {
+
+						status = false
+
+						break
+					}
+
+				}
+
+				return status
+			}
+
+		</script>  
+    
+	</body>
+
+</html>

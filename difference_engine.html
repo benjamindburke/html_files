@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+	<head>
+		<title>The Difference Engine</title>
+	<script>
+		var x1, x2, y0, y1, y2, y3, y4, y5;
+		var x1out, y0out, y1out, y2out, y3out, y4out, y5out;
+		
+		function initialize(){
+			[x1out, y0out, y1out, y2out, y3out, y4out, y5out] = Array(7).fill('')
+			[x1, x2, y0, y1, y2, y3, y4, y5] = Array(8).fill(0);
+		}
+		
+		function compute(){
+			x1 = Number(document.getElementById("x1").value) + 1
+			x2 = Number(document.getElementById("x2").value)
+			y0 = Number(document.getElementById("y0").value)
+			y1 = Number(document.getElementById("y1").value)
+			y2 = Number(document.getElementById("y2").value)
+			y3 = Number(document.getElementById("y3").value)
+			y4 = Number(document.getElementById("y4").value)
+			y5 = Number(document.getElementById("y5").value)
+
+			for (x1; x1 <= Number(document.getElementById("x1").value) + Number(document.getElementById("x2").value); x1++){
+				x1out += x1 + '\n'
+				y5out += y5 + '\n'
+				y4 += y5;
+				y4out += y4 + '\n'
+				y3 += y4;
+				y3out += y3 + '\n'
+				y2 += y3;
+				y2out += y2 + '\n'
+				y1 += y2;
+				y1out += y1 + '\n'
+				y0 += y1;
+				y0out += y0 + '\n'
+			}
+			document.getElementById("x1out").value = x1out;
+			document.getElementById("y0out").value = y0out;
+			document.getElementById("y1out").value = y1out;
+			document.getElementById("y2out").value = y2out;
+			document.getElementById("y3out").value = y3out;
+			document.getElementById("y4out").value = y4out;
+			document.getElementById("y5out").value = y5out;
+		}
+		
+		function reset() {
+	        Array.from(document.querySelectorAll('.output'))
+	            .forEach(x => x.innerHTML = '')
+		        
+	        Array.from(document.querySelectorAll('.input'))
+	            .forEach(x => x.value = '')
+	            
+			initialize();
+		}
+		
+		window.addEventListener('load', reset)
+	</script>
+	</head>
+	<body>
+		<center><h2>The Difference Engine Simulator</h2></center>
+		<p>This simulator is designed to simulate Babbage's Difference Engine. It is capable of computing up to fifth-order polynomials.
+		There will be 6 y outputs. Y inputs for the fifth derivative of a second-order polynomial will naturally be zero, etc. The first
+		row of the table is left for the user to enter values, thus starting the simualtion. This simulator was created by Benjamin D. Burke.
+		Documentation can be found <a HREF="http://www.pages.drexel.edu/~bdb55/difference_engine_documentation.html">here</a>.</p>
+		<center><button onclick="compute()">Compute</button>&nbsp;<input class="input" type="text" id="x2" size="2"> rows. <button onclick="reset()">Reset</button>
+		<p><table>
+			<thead>
+				<tr>
+					<th>x</th>
+					<th>y</th>
+					<th>&#916;y</th>
+					<th>&#916;<sup>2</sup>y</th>
+					<th>&#916;<sup>3</sup>y</th>
+					<th>&#916;<sup>4</sup>y</th>
+					<th>&#916;<sup>5</sup>y</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td><input type="text" id="x1" class="input" size="5"></td>
+					<td><input type="text" id="y0" class="input" size="5"></td>
+					<td><input type="text" id="y1" class="input" size="5"></td>
+					<td><input type="text" id="y2" class="input" size="5"></td>
+					<td><input type="text" id="y3" class="input" size="5"></td>
+					<td><input type="text" id="y4" class="input" size="5"></td>
+					<td><input type="text" id="y5" class="input" size="5"></td>
+				</tr>
+				<tr>
+					<td><textarea id="x1out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y0out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y1out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y2out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y3out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y4out" class="output" cols="6" rows="30"></textarea></td>
+					<td><textarea id="y5out" class="output" cols="6" rows="30"></textarea></td>
+				</tr>
+			</tbody></center>
+		<script>reset();</script>
+	</body>
+</html>
